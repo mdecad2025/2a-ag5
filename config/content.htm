@@ -161,38 +161,39 @@
 <p>測試</p>
 <h1>W12</h1>
 <p>先將每個會動的地方（類似人類的關節、膝蓋）設置座標系及軸。</p>
-<p><img alt="" height="253" src="/images/螢幕擷取畫面 2025-11-27 222203.png" width="185"/></p>
+<p><img alt="" height="537" src="/images/螢幕擷取畫面 2025-11-27 222203.png" width="393"/></p>
 <p>左鍵工具，下拉找到Tool，再點擊Export as URDF。</p>
-<p><img alt="" height="369" src="/images/螢幕擷取畫面 2025-11-27 223443.png" width="197"/></p>
+<p><img alt="" height="579" src="/images/螢幕擷取畫面 2025-11-27 223443.png" width="309"/></p>
 <p>我們以機器人的軀幹為整個機器人的主座標，設定完主座標及組成軀幹的零件後，增加三個分支，分別為機器人的Neck、L_Hip、R_Hip。</p>
-<p><img alt="" height="271" src="/images/螢幕擷取畫面 2025-11-26 205057.png" width="478"/></p>
+<p><img alt="" height="316" src="/images/螢幕擷取畫面 2025-11-26 205057.png" width="557"/></p>
 <p>點選分支進行座標、軸的命名及設定並選取其組成的零件。</p>
-<p><img alt="" height="297" src="/images/螢幕擷取畫面 2025-11-26 211635.png" width="419"/></p>
+<p><img alt="" height="393" src="/images/螢幕擷取畫面 2025-11-26 211635.png" width="554"/></p>
 <p>這是我們設定完的樹狀圖，完成設定後點選Preview and Export。</p>
-<p><img alt="" height="222" src="/images/螢幕擷取畫面 2025-12-03 222640.png" width="188"/><img alt="" height="238" src="/images/螢幕擷取畫面 2025-11-26 222325.png" width="228"/></p>
+<p><img alt="" height="266" src="/images/螢幕擷取畫面 2025-12-03 222640.png" width="225"/><img alt="" height="285" src="/images/螢幕擷取畫面 2025-11-26 222325.png" width="273"/></p>
 <p>確認輸出的資料是否與座標、軸的設置相同，若無誤就點選Next進行下一步。</p>
-<p><img alt="" height="283" src="/images/螢幕擷取畫面 2025-11-26 222356.png" width="489"/></p>
+<p><img alt="" height="318" src="/images/螢幕擷取畫面 2025-11-26 222356.png" width="549"/></p>
 <p>再次確認輸出資訊，無誤點選Export URDF and Meshes，建議新增資料夾儲存。</p>
-<p><img alt="" height="275" src="/images/螢幕擷取畫面 2025-11-26 231151.png" width="497"/></p>
+<p><img alt="" height="302" src="/images/螢幕擷取畫面 2025-11-26 231151.png" width="546"/></p>
 <p>搜尋cmd打開命令提示字元，打上指令python -m pip install urdf2webots讓電腦安裝轉檔資源。</p>
-<p><img alt="" height="244" src="/images/螢幕擷取畫面 2025-11-27 232247.png" width="497"/></p>
+<p><img alt="" height="269" src="/images/螢幕擷取畫面 2025-11-27 232247.png" width="548"/></p>
 <p>再打以下指令讓URDF檔轉成proto檔，路徑的部分需要自行更改，C:\Users\ASUS\AppData\Local\Programs\Python\Python314\Lib\site-packages\urdf2webots\importer.py --input D:\DUCK-1126\Duck\Duck\urdf\Duck.urdf --output D:\DUCK-1126\Duck\Duck\urdf\Duck.proto</p>
 <p><img alt="" height="25" src="/images/螢幕擷取畫面 2025-11-27 233020.png" width="541"/></p>
 <p>成功的話就會在目的地資料夾看到生成一個proto檔。</p>
-<p><img alt="" height="156" src="/images/螢幕擷取畫面 2025-11-27 233037.png" width="169"/></p>
+<p><img alt="" height="185" src="/images/螢幕擷取畫面 2025-11-27 233037.png" width="200"/></p>
 <p>打開webots並新開一個專案。</p>
-<p><img alt="" height="332" src="/images/螢幕擷取畫面 2025-11-27 234139.png" width="282"/></p>
+<p><img alt="" height="407" src="/images/螢幕擷取畫面 2025-11-27 234139.png" width="346"/></p>
 <p>把剛剛生成的proto檔丟到新建的專案資料夾裡的protos資料夾裡並Reload World。</p>
-<p><img alt="" height="187" src="/images/螢幕擷取畫面 2025-11-27 234646.png" width="318"/></p>
+<p><img alt="" height="242" src="/images/螢幕擷取畫面 2025-11-27 234646.png" width="412"/></p>
 <p>Add New新增一個Robot。</p>
-<p><img alt="" height="307" src="/images/螢幕擷取畫面 2025-11-27 235921.png" width="451"/></p>
+<p><img alt="" height="372" src="/images/螢幕擷取畫面 2025-11-27 235921.png" width="546"/></p>
 <p>在Robots下找到children並點擊Add New。</p>
 <p><img alt="" height="361" src="/images/螢幕擷取畫面 2025-11-28 000144.png" width="545"/></p>
 <p>在RPOTO nodes(Current Project)下可以看到我們的機器人，點選並點擊Add。</p>
-<p><img alt="" height="310" src="/images/螢幕擷取畫面 2025-11-27 235658.png" width="450"/></p>
+<p><img alt="" height="375" src="/images/螢幕擷取畫面 2025-11-27 235658.png" width="544"/></p>
 <p>我們的機器人成功匯入，但有錯誤警告，目前正在排除中。</p>
-<p><img alt="" height="302" src="/images/螢幕擷取畫面 2025-11-28 000618.png" width="537"/></p>
+<p><img alt="" height="315" src="/images/螢幕擷取畫面 2025-11-28 000618.png" width="560"/></p>
 <p>我們在專案資寮夾裡面的controllers資料夾裡新增名為duck_control的資料夾，並在裡面新增名為duck_control的py檔，用於寫入控制機器人的程式做使用。</p>
-<p><img alt="" height="288" src="/images/螢幕擷取畫面 2025-11-28 001334.png" width="534"/></p>
+<p><img alt="" height="299" src="/images/螢幕擷取畫面 2025-11-28 001334.png" width="554"/></p>
 <p>Reload World後，我們在新增的機器人分支下找到controller"none"點擊Select，可以找到剛剛新增的duck_control，點選並點擊OK後，右邊就能進行程式編輯。</p>
 <p><img alt="" height="192" src="/images/螢幕擷取畫面 2025-11-28 002022.png" width="562"/></p>
+<p></p>
