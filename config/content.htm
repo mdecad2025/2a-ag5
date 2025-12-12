@@ -408,11 +408,166 @@
 <p><span class="TextRun BCX8 SCXP264793912" data-contrast="none" data-usefontface="true" lang="ZH-TW" xml:lang="ZH-TW"><span class="NormalTextRun BCX8 SCXP264793912"><span class="TextRun BCX8 SCXP266035451" data-contrast="none" data-usefontface="true" lang="ZH-TW" xml:lang="ZH-TW"><span class="NormalTextRun BCX8 SCXP266035451"><span class="EOP SCXP121594345 BCX8"><span class="EOP SCXP166268587 BCX8"><img alt="https://media.discordapp.net/attachments/1437383736348905566/1446385525102481458/2025-12-05_141919.png?ex=693c5cbd&amp;is=693b0b3d&amp;hm=7b01b115031db7be0a1087cea705f98337cf08814739a9d8ce5b252c10f65a09&amp;=&amp;format=webp&amp;quality=lossless&amp;width=685&amp;height=386" height="316" src="https://media.discordapp.net/attachments/1437383736348905566/1446385525102481458/2025-12-05_141919.png?ex=693c5cbd&amp;is=693b0b3d&amp;hm=7b01b115031db7be0a1087cea705f98337cf08814739a9d8ce5b252c10f65a09&amp;=&amp;format=webp&amp;quality=lossless&amp;width=685&amp;height=386" width="561"/></span></span></span></span></span></span></p>
 <p><span class="TextRun BCX8 SCXP264793912" data-contrast="none" data-usefontface="true" lang="ZH-TW" xml:lang="ZH-TW"><span class="NormalTextRun BCX8 SCXP264793912"><span class="TextRun BCX8 SCXP266035451" data-contrast="none" data-usefontface="true" lang="ZH-TW" xml:lang="ZH-TW"><span class="NormalTextRun BCX8 SCXP266035451"><span class="EOP SCXP121594345 BCX8"><span class="EOP SCXP166268587 BCX8"><span class="TextRun BCX8 SCXP102859028" data-contrast="none" data-usefontface="true" lang="ZH-TW" xml:lang="ZH-TW"><span class="NormalTextRun BCX8 SCXP102859028">將原點設在一開始所測量的零件座標上。</span></span></span></span></span></span></span></span></p>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/nkVi2YPa4A8" width="560"></iframe></p>
-<p><img alt="https://media.discordapp.net/attachments/1437383736348905566/1446380524674355332/2025-12-05_135926.png?ex=693c5815&amp;is=693b0695&amp;hm=b2cb0baaec84dfa59bc48880e2694396e06c67f614d85eaf360971f515d94b32&amp;=&amp;format=webp&amp;quality=lossless&amp;width=618&amp;height=666" height="605" src="https://media.discordapp.net/attachments/1437383736348905566/1446380524674355332/2025-12-05_135926.png?ex=693c5815&amp;is=693b0695&amp;hm=b2cb0baaec84dfa59bc48880e2694396e06c67f614d85eaf360971f515d94b32&amp;=&amp;format=webp&amp;quality=lossless&amp;width=618&amp;height=666" width="562"/></p>
 <p>影片:底座一連接桿子一、二 並模擬測試是否連接在一起。</p>
 <p>圖片:測試零件是否連接在一起的程式碼。</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># link_test.py
+from controller import Robot, Motor
+import time
+
+# 1. 初始化 Robot
+robot = Robot()
+timestep = int(robot.getBasicTimeStep())
+
+# 2. 取得馬達裝置
+# 注意：這裡的 "motor_1" 必須與您在 Webots 中 RotationalMotor 節點的 name 屬性完全相同
+motor_1 = robot.getDevice("motor_1")
+
+# 3. 設定馬達速度和目標位置
+motor_1.setVelocity(1.0) # 設定旋轉速度為 1.0 rad/s
+# motor_1.setPosition(float('inf')) # 讓馬達自由旋轉 (不設定目標角度)
+# motor_1.setTorque(0.0) # 也可以嘗試用扭矩控制，但通常用位置或速度控制
+
+# 4. 讓連桿旋轉 90 度 (π/2 弧度)
+target_angle_rad = 3.14159 / 2.0 # 90 度
+
+print(f"--- 開始測試旋轉 ---")
+print(f"目標角度: {target_angle_rad:.2f} 弧度")
+
+motor_1.setPosition(target_angle_rad) # 設定目標位置
+
+# 5. 執行迴圈，直到馬達到達目標 (或運行一段時間)
+start_time = robot.getTime()
+duration = 4.0 # 運行 4 秒，確保有足夠時間到達
+
+while robot.step(timestep) != -1:
+    current_time = robot.getTime()
+    
+    # 這裡可以加入檢查當前位置的程式碼，但為了簡單測試，我們只運行 4 秒
+    # current_pos = motor_1.getTargetPosition() # 注意：Webots Motor 節點沒有 getPosition()
+    
+    if current_time - start_time &gt; duration:
+        print("到達指定時間，停止旋轉。")
+        motor_1.setPosition(0.0) # 讓它回到原點
+        break
+
+# 結束
+# 讓世界運行一下，以便觀察最終狀態
+for _ in range(50):
+    robot.step(timestep)
+
+print("--- 測試完成 ---")</pre>
+<p></p>
+<p></p>
+<p></p>
 <p><img alt="https://cdn.discordapp.com/attachments/1359883571547869377/1448928429998084138/2025-12-05_141151.png?ex=693d0b41&amp;is=693bb9c1&amp;hm=1af5b37698bb0b12008d594f4437fe2c052157175c5e862c1494e53232c5adde&amp;" height="294" src="https://cdn.discordapp.com/attachments/1359883571547869377/1448928429998084138/2025-12-05_141151.png?ex=693d0b41&amp;is=693bb9c1&amp;hm=1af5b37698bb0b12008d594f4437fe2c052157175c5e862c1494e53232c5adde&amp;" width="618"/></p>
 <p>重複以上步驟操作，連接底座與連桿。</p>
 <p><img alt="https://media.discordapp.net/attachments/1437383736348905566/1446384446768021625/2025-12-05_141437.png?ex=693d047c&amp;is=693bb2fc&amp;hm=2dc3b837e18641456c9ba456442542ae11b51cd95fb1e53f2a71db339f1c721c&amp;format=webp&amp;quality=lossless&amp;width=1040&amp;height=767&amp;" height="415" src="https://media.discordapp.net/attachments/1437383736348905566/1446384446768021625/2025-12-05_141437.png?ex=693d047c&amp;is=693bb2fc&amp;hm=2dc3b837e18641456c9ba456442542ae11b51cd95fb1e53f2a71db339f1c721c&amp;format=webp&amp;quality=lossless&amp;width=1040&amp;height=767&amp;" width="563"/></p>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/NB23MrFKGh8" width="560"></iframe></p>
-<p><span>底座二連接桿子三、四 模擬測試。</span></p>
+<p><span>影片:底座二連接桿子三、四 模擬測試。</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># four_links_10s_reset_test.py
+from controller import Robot, Motor
+import math
+
+# 1. 初始化 Robot
+robot = Robot()
+timestep = int(robot.getBasicTimeStep())
+
+# 2. 定義運動參數
+# 45 度換算成弧度 (rad)
+ANGLE_45_DEG_RAD = math.pi / 4.0 
+# 運動速度
+SPEED = 0.5  # 0.5 rad/s
+# 擺動持續時間
+DURATION_PER_SWING = 2.0 
+
+# 總運行時間限制 (10 秒)
+RUN_DURATION = 10.0 
+# 回歸原點的緩衝時間 (給馬達 2 秒時間從當前位置回到 0 度)
+RETURN_HOME_TIME = 2.0 
+
+# 3. 取得所有馬達裝置
+try:
+    motor_1 = robot.getDevice("motor_1")
+    motor_2 = robot.getDevice("motor_2")
+    motor_3 = robot.getDevice("motor_3")
+    motor_4 = robot.getDevice("motor_4")
+except AttributeError as e:
+    print(f"錯誤: 無法找到所有馬達裝置 (motor_1, 2, 3, or 4)。請檢查名稱。{e}")
+    exit()
+
+# 4. 初始化馬達設定
+motor_1.setVelocity(SPEED)
+motor_2.setVelocity(SPEED)
+motor_3.setVelocity(SPEED)
+motor_4.setVelocity(SPEED)
+
+# 初始目標位置 (設定為 45 度)
+initial_target_position = ANGLE_45_DEG_RAD
+motor_1.setPosition(initial_target_position)
+motor_2.setPosition(initial_target_position)
+motor_3.setPosition(initial_target_position)
+motor_4.setPosition(initial_target_position)
+
+# 狀態變數
+run_started_time = robot.getTime()
+last_switch_time = run_started_time
+is_moving_to_45 = True
+is_returning_home = False
+return_home_finish_time = float('inf')
+
+
+print("--- 四連桿同步擺動總整合測試開始 (運行 10 秒) ---")
+
+# 5. 主模擬迴圈
+while robot.step(timestep) != -1:
+    current_time = robot.getTime()
+    
+    # === 階段一：10 秒內的擺動 ===
+    if not is_returning_home:
+        
+        # 檢查是否到達 10 秒運行時間
+        if current_time - run_started_time &gt;= RUN_DURATION:
+            print(f"--- 時間 {current_time:.2f}s：10 秒運行時間到，開始回歸原點 (0 度) ---")
+            is_returning_home = True
+            
+            # 設定最終目標位置為 0.0 弧度
+            final_target_position = 0.0 
+            motor_1.setPosition(final_target_position)
+            motor_2.setPosition(final_target_position)
+            motor_3.setPosition(final_target_position)
+            motor_4.setPosition(final_target_position)
+            
+            # 設定結束時間：當前時間 + 回歸緩衝時間
+            return_home_finish_time = current_time + RETURN_HOME_TIME
+            
+        # 進行正常的 45 度來回擺動
+        elif current_time - last_switch_time &gt;= DURATION_PER_SWING:
+            
+            is_moving_to_45 = not is_moving_to_45
+            last_switch_time = current_time
+            
+            if is_moving_to_45:
+                target_position = ANGLE_45_DEG_RAD
+                print(f"時間: {current_time:.2f}s - 擺動到 45 度")
+            else:
+                target_position = 0.0
+                print(f"時間: {current_time:.2f}s - 擺動回 0 度")
+                
+            motor_1.setPosition(target_position)
+            motor_2.setPosition(target_position)
+            motor_3.setPosition(target_position)
+            motor_4.setPosition(target_position)
+
+    # === 階段二：回歸原點並停止 ===
+    elif is_returning_home and current_time &gt;= return_home_finish_time:
+        print(f"時間 {current_time:.2f}s：所有連桿已到達原點，停止馬達。")
+        # 停止所有馬達
+        motor_1.setVelocity(0.0)
+        motor_2.setVelocity(0.0)
+        motor_3.setVelocity(0.0)
+        motor_4.setVelocity(0.0)
+        break
+
+print("--- 模擬結束 ---")
+</pre>
+<p></p>
