@@ -131,7 +131,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='關於.html'>關於</a><li><a href='W3.html'>W3</a><li><a href='W4.html'>W4</a><li class='has-children'><a href='W7.html'>W7</a><ul class='dropdown'><li><a href='Webot.html'>Webot</a><li><a href='Webot2.html'>Webot2</a><li><a href='一、模擬目標與內容.html'>一、模擬目標與內容</a><li class='has-children'><a href='二、實作步驟詳述.html'>二、實作步驟詳述</a><ul class='dropdown'><li><a href='1. 創建剛體球體（Solid 節點）.html'>1. 創建剛體球體（Solid 節點）</a><li><a href='2. 優化球體幾何（Sphere 節點）.html'>2. 優化球體幾何（Sphere 節點）</a><li><a href='3. 使用 DEF-USE 機制減少冗餘.html'>3. 使用 DEF-USE 機制減少冗餘</a><li><a href='4. 新增第二顆球.html'>4. 新增第二顆球</a><li><a href='5. 建立四面牆壁（Box 節點）.html'>5. 建立四面牆壁（Box 節點）</a><li><a href='6. 修改牆壁外觀為藍色.html'>6. 修改牆壁外觀為藍色</a><li><a href='7. 使用 Webots 預設外觀與本地紋理.html'>7. 使用 Webots 預設外觀與本地紋理</a><li><a href='8. 渲染模式切換與輔助視圖.html'>8. 渲染模式切換與輔助視圖</a></li></ul><li><a href='三、心得與體會.html'>三、心得與體會</a></li></ul><li><a href='W12.html'>W12</a><li><a href='W14.html'>W14</a></li>
+                     <li><a href='關於.html'>關於</a><li><a href='W3.html'>W3</a><li><a href='W4.html'>W4</a><li class='has-children'><a href='W7.html'>W7</a><ul class='dropdown'><li><a href='Webot.html'>Webot</a><li><a href='Webot2.html'>Webot2</a><li><a href='一、模擬目標與內容.html'>一、模擬目標與內容</a><li><a href='二、實作步驟詳述.html'>二、實作步驟詳述</a><li><a href='三、心得與體會.html'>三、心得與體會</a></li></ul><li><a href='W12.html'>W12</a><li><a href='W14.html'>W14</a></li>
                       </ul>
                 </nav>
               </div>
@@ -143,7 +143,134 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">Webot << <a href='Webot.html'>Previous</a> <a href='一、模擬目標與內容.html'>Next</a> >> 一、模擬目標與內容<br /><h1>Webot2</h1>
-<br />Webot << <a href='Webot.html'>Previous</a> <a href='一、模擬目標與內容.html'>Next</a> >> 一、模擬目標與內容</div>
+<p>1. 創建剛體球體（Solid 節點）</p>
+<ul data-end="695" data-start="352">
+<li data-end="369" data-start="352">
+<p data-end="369" data-start="354">在場景樹中選擇最後一個節點</p>
+</li>
+<li data-end="394" data-start="370">
+<p data-end="394" data-start="372">按下「Add」新增一個「Solid」節點</p>
+</li>
+<li data-end="459" data-start="395">
+<p data-end="459" data-start="397">在 Solid 節點內添加一個「Shape」節點，並在 Shape 節點中添加「PBRAppearance」節點設定外觀</p>
+</li>
+<li data-end="501" data-start="460">
+<p data-end="501" data-start="462">Shape 的 geometry 欄位中添加「Sphere」節點作為幾何體</p>
+</li>
+<li data-end="554" data-start="502">
+<p data-end="554" data-start="504">在 Solid 節點的 boundingObject 欄位中添加一個「Sphere」作為物理邊界</p>
+</li>
+<li data-end="606" data-start="555">
+<p data-end="606" data-start="557">在 Solid 節點的 physics 欄位添加一個「Physics」節點，使物體能受重力影響</p>
+</li>
+<li data-end="664" data-start="607">
+<p data-end="664" data-start="609">將 Solid 節點的位置 (translation) 設置於機器人前方，例如 {0.2, 0, 0.2}</p>
+</li>
+<li data-end="695" data-start="665">
+<p data-end="695" data-start="667">保存並測試模擬，確認球會因重力掉落並可用滑鼠施力移動</p>
+</li>
+</ul>
+<p>2. 優化球體幾何（Sphere 節點）</p>
+<ul data-end="797" data-start="723">
+<li data-end="763" data-start="723">
+<p data-end="763" data-start="725">修改 Sphere 節點的 radius 欄位為 0.05，縮小球體尺寸</p>
+</li>
+<li data-end="797" data-start="764">
+<p data-end="797" data-start="766">將 subdivision 欄位設為 2，提高球體圖形品質</p>
+</li>
+</ul>
+<p>3. 使用 DEF-USE 機制減少冗餘</p>
+<ul data-end="1007" data-start="825">
+<li data-end="869" data-start="825">
+<p data-end="869" data-start="827">對第一個 Sphere 節點設置 DEF 名稱為 <code data-end="867" data-start="852">BALL_GEOMETRY</code></p>
+</li>
+<li data-end="906" data-start="870">
+<p data-end="906" data-start="872">刪除 boundingObject 中原本的 Sphere 節點</p>
+</li>
+<li data-end="976" data-start="907">
+<p data-end="976" data-start="909">以 USE <code data-end="930" data-start="915">BALL_GEOMETRY</code> 引用 DEF 節點，讓 boundingObject 與圖形表示共用同一 Sphere</p>
+</li>
+<li data-end="1007" data-start="977">
+<p data-end="1007" data-start="979">這樣修改 radius 會同時影響兩處，提高維護效率</p>
+</li>
+</ul>
+<p>4. 新增第二顆球</p>
+<ul data-end="1120" data-start="1024">
+<li data-end="1054" data-start="1024">
+<p data-end="1054" data-start="1026">複製第一個 Solid 節點，改名並修改位置避免重疊</p>
+</li>
+<li data-end="1099" data-start="1055">
+<p data-end="1099" data-start="1057">在複製節點中，確認 Shape 使用 DEF-USE 機制重用先前定義的球體形狀</p>
+</li>
+<li data-end="1120" data-start="1100">
+<p data-end="1120" data-start="1102">調整球的位置參數，使兩球並列展示</p>
+</li>
+</ul>
+<p>5. 建立四面牆壁（Box 節點）</p>
+<ul data-end="1272" data-start="1145">
+<li data-end="1167" data-start="1145">
+<p data-end="1167" data-start="1147">使用 Box 節點定義牆壁的幾何形狀</p>
+</li>
+<li data-end="1208" data-start="1168">
+<p data-end="1208" data-start="1170">只使用一個 Shape 節點並以 DEF-USE 機制重用，避免重複定義</p>
+</li>
+<li data-end="1245" data-start="1209">
+<p data-end="1245" data-start="1211">將牆壁設定為靜態物體（不加 Physics 節點），使其固定不動</p>
+</li>
+<li data-end="1272" data-start="1246">
+<p data-end="1272" data-start="1248">設定牆壁尺寸和位置，形成封閉區域包圍剛體球體</p>
+</li>
+</ul>
+<p>6. 修改牆壁外觀為藍色</p>
+<ul data-end="1444" data-start="1292">
+<li data-end="1342" data-start="1292">
+<p data-end="1342" data-start="1294">在牆壁 Shape 節點的 appearance 欄位添加 PBRAppearance 節點</p>
+</li>
+<li data-end="1376" data-start="1343">
+<p data-end="1376" data-start="1345">設定 baseColor 為藍色 (RGB: 0,0,1)</p>
+</li>
+<li data-end="1397" data-start="1377">
+<p data-end="1397" data-start="1379">設定 metalness 為 0</p>
+</li>
+<li data-end="1420" data-start="1398">
+<p data-end="1420" data-start="1400">設定 roughness 為 0.5</p>
+</li>
+<li data-end="1444" data-start="1421">
+<p data-end="1444" data-start="1423">確認所有牆壁共用相同外觀，完成顏色修改</p>
+</li>
+</ul>
+<p>7. 使用 Webots 預設外觀與本地紋理</p>
+<ul data-end="1621" data-start="1474">
+<li data-end="1503" data-start="1474">
+<p data-end="1503" data-start="1476">在球體的 appearance 欄位中刪除原有節點</p>
+</li>
+<li data-end="1550" data-start="1504">
+<p data-end="1550" data-start="1506">新增 Webots 預設的 PBRAppearance 節點（如 OldSteel）</p>
+</li>
+<li data-end="1604" data-start="1551">
+<p data-end="1604" data-start="1553">添加 ImageTexture 節點並載入本地紅磚牆紋理 <code data-end="1602" data-start="1582">red_brick_wall.jpg</code></p>
+</li>
+<li data-end="1621" data-start="1605">
+<p data-end="1621" data-start="1607">確認紋理正確映射在球體上</p>
+</li>
+</ul>
+<p>8. 渲染模式切換與輔助視圖</p>
+<ul data-end="1800" data-start="1643">
+<li data-end="1692" data-start="1643">
+<p data-end="1692" data-start="1645">使用 View &gt; Wireframe Rendering 開啟線框模式，觀察物件網格結構</p>
+</li>
+<li data-end="1731" data-start="1693">
+<p data-end="1731" data-start="1695">使用 View &gt; Plain Rendering 回復正常著色模式</p>
+</li>
+<li data-end="1779" data-start="1732">
+<p data-end="1779" data-start="1734">使用快捷鍵 Ctrl + F1 顯示座標系統，Ctrl + F10 顯示距離感測器光線</p>
+</li>
+<li data-end="1800" data-start="1780">
+<p data-end="1800" data-start="1782">這些工具有助於開發時的觀察與除錯</p>
+</li>
+</ul>
+<p><img alt="" height="327" src="./../images/螢幕擷取畫面 2025-12-05 155108.png" width="528"/></p>
+<p><img alt="" height="328" src="./../images/螢幕擷取畫面 2025-12-05 155520.png" width="538"/></p><br />Webot << <a href='Webot.html'>Previous</a> <a href='一、模擬目標與內容.html'>Next</a> >> 一、模擬目標與內容</div>
         
     <!-- footer -->
       <div class="container">
