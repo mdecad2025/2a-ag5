@@ -2,7 +2,7 @@
         <head>
         <title>cad2025_hw</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H3">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
@@ -142,34 +142,22 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">W12 << <a href='W12.html'>Previous</a> <a href='W15.html'>Next</a> >> W15<br /><h1>W14</h1>
-<p>.py程式控制</p>
-<p>新增控制器</p>
-<p><img alt="" height="217" src="./../images/1204-1.png" width="467"/></p>
-<p></p>
-<p>選擇python作為解釋器</p>
-<p><img alt="" height="378" src="./../images/1204-2.png" width="526"/></p>
-<p></p>
-<p>名稱自行決定</p>
-<p><img alt="" height="377" src="./../images/1204-3.png" width="534"/></p>
-<p></p>
-<p>生成完成後會有一個基本的webot控制器結構，用這個空白的控制器腳本請AI生成一個控制馬達選轉的程式碼</p>
-<p><img alt="" height="845" src="./../images/1204-4.png" width="522"/></p>
-<p></p>
-<p>生成後將此程式碼複製</p>
-<p><img alt="" height="685" src="./../images/1204-5.png" width="800"/></p>
-<p></p>
-<p>直接貼入控制器文本當中</p>
-<p><img alt="" height="808" src="./../images/1204-6.png" width="524"/></p>
-<p></p>
-<p>隨後在已匯入進去的模型裡設置馬達並命名t1<img alt="" height="408" src="./../images/1204-7.png" width="409"/></p>
-<p></p>
-<p>最後在最外層控制器這裡選擇你剛剛建立的控制器即可</p>
-<p><img alt="" height="474" src="./../images/1204-8.png" width="800"/></p>
-<p></p>
-<p>點擊運行便能執行動作</p>
-<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/wEBKtKPlWuE" width="560"></iframe></p>
-<br />W12 << <a href='W12.html'>Previous</a> <a href='W15.html'>Next</a> >> W15</div>
+    <div id="tipue_search_content">2. 優化球體幾何（Sphere 節點） << <a href='2. 優化球體幾何（Sphere 節點）.html'>Previous</a> <a href='4. 新增第二顆球.html'>Next</a> >> 4. 新增第二顆球<br /><h1>3. 使用 DEF-USE 機制減少冗餘</h1>
+<ul data-end="1007" data-start="825">
+<li data-end="869" data-start="825">
+<p data-end="869" data-start="827">對第一個 Sphere 節點設置 DEF 名稱為 <code data-end="867" data-start="852">BALL_GEOMETRY</code></p>
+</li>
+<li data-end="906" data-start="870">
+<p data-end="906" data-start="872">刪除 boundingObject 中原本的 Sphere 節點</p>
+</li>
+<li data-end="976" data-start="907">
+<p data-end="976" data-start="909">以 USE <code data-end="930" data-start="915">BALL_GEOMETRY</code> 引用 DEF 節點，讓 boundingObject 與圖形表示共用同一 Sphere</p>
+</li>
+<li data-end="1007" data-start="977">
+<p data-end="1007" data-start="979">這樣修改 radius 會同時影響兩處，提高維護效率</p>
+</li>
+</ul>
+<br />2. 優化球體幾何（Sphere 節點） << <a href='2. 優化球體幾何（Sphere 節點）.html'>Previous</a> <a href='4. 新增第二顆球.html'>Next</a> >> 4. 新增第二顆球</div>
         
     <!-- footer -->
       <div class="container">
