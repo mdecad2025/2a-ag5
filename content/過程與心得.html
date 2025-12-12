@@ -2,6 +2,7 @@
         <head>
         <title>cad2025_hw</title>
         <meta charset="utf-8">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
@@ -95,6 +96,7 @@ img.add_border {
 </head>
 <body>
 <div class='container'><nav>
+        
     <div class="site-wrap">
 
     <div class="site-mobile-menu">
@@ -140,4 +142,69 @@ img.add_border {
           </div>
           
         </header>
-    </nav><section><h1>SMap</h1><div id="tipue_search_content"></div><ul><li><a href='關於.html'>關於</a><li><a href='W3.html'>W3</a><li><a href='W4.html'>W4</a><li><a href='W7.html'>W7</a><ul><li><a href='Webot.html'>Webot</a><li><a href='Webot2.html'>Webot2</a><ul><li><a href='2. 優化球體幾何（Sphere 節點）.html'>2. 優化球體幾何（Sphere 節點）</a></li></ul><li><a href='一、模擬目標與內容.html'>一、模擬目標與內容</a><li><a href='二、實作步驟詳述.html'>二、實作步驟詳述</a><li><a href='三、心得與體會.html'>三、心得與體會</a></li></ul><li><a href='W12.html'>W12</a><li><a href='W14.html'>W14</a><li><a href='W15.html'>W15</a><ul><li><a href='plotter.html'>plotter</a><li><a href='過程與心得.html'>過程與心得</a></li></ul></section></div></body></html>
+    <div id="tipue_search_content">plotter << <a href='plotter.html'>Previous</a> <br /><h1>過程與心得</h1>
+<ul>
+<li>
+<p data-path-to-node="6,0,0"><b>專注於幾何對齊：</b><span> </span>在 Webots 中，最費時也最關鍵的步驟是確保所有的<span> </span><code>HingeJoint</code><span> </span>或<span> </span><code>RotationalMotor</code><span> </span>的<span> </span><b><code>anchor</code></b><span> </span>和<span> </span><b><code>axis</code></b><span> </span>參數與連桿的<span> </span><b><code>translation</code></b><span> </span>參數完美對齊。</p>
+<ul data-path-to-node="6,0,1">
+<li>
+<p data-path-to-node="6,0,1,0,0"><b>體會：</b><span> </span>任何微小的座標偏差都會導致連桿在模擬開始時立即彈開或扭曲。必須像您分析問題一樣，<b>逐步推敲</b>每個連桿的局部座標系與世界座標系的關係，確保<span> </span><span class="math-inline" data-math="x, y, z">x, y, z</span> 軸和關節中心點的誤差。</p>
+</li>
+</ul>
+</li>
+<li>
+<p data-path-to-node="6,1,0"><b>選擇正確的節點：</b><span> </span>繪圖機需要精確控制，所以通常使用<span> </span><code>RotationalMotor</code><span> </span>作為主動關節（例如：連接地面的兩端），並使用<span> </span><code>HingeJoint</code><span> </span>作為被動關節（例如：您影片中要連接的<span> </span><code>link 1</code><span> </span>和<span> </span><code>link 2</code>）。</p>
+<p data-path-to-node="6,1,1,0,0"></p>
+</li>
+<li>在剛開始用webots的時候，確實有許多分支節點不知道怎麼運用，連接一個底座加上桿子就要花上幾十分鐘，更別說要將他們牢固的連接在一起，不過經過反覆觀看操作影片跟gemini的交流後，運用的也越加快速，哪裡可以匯入零件的外觀、哪裡要加HingeJoint將零件之間牢牢固定，最後還用了python將零件上的馬達運轉，總結來說，製作 Webots 繪圖機的體會就是：<b>從嚴謹的幾何建模開始，通過精確的運動學數學模型，最終在控制器程式中實現時間與空間的精準控制。</b></li>
+</ul><br />plotter << <a href='plotter.html'>Previous</a> </div>
+        
+    <!-- footer -->
+      <div class="container">
+        <div class="row pt-3 mx-auto">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    <!-- for footer -->
+    
+        </div> <!-- for site wrap -->
+            <!-- <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script> -->
+            <script src="../cmsimde/static/chimper/js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery-ui.js"></script>
+            <script src="../cmsimde/static/chimper/js/popper.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/owl.carousel.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.stellar.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.countdown.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.magnific-popup.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap-datepicker.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/aos.js"></script>
+            <!--
+            <script src="../cmsimde/static/chimper/js/typed.js"></script>
+                    <script>
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    </script>
+            -->
+            <script src="../cmsimde/static/chimper/js/main.js"></script>
+        
+<!-- 啟用 LaTeX equations 編輯 -->
+  <!-- <script>
+  MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\(', '\)']]}
+  };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>-->
+    </body></html>
+        
