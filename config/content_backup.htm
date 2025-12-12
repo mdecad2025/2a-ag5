@@ -105,7 +105,8 @@
 <p data-end="225" data-start="95"></p>
 <h1>W7</h1>
 <p>此處錄影上傳YT後的存放位置。<iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/zz2pYx3kAaU" width="560"></iframe></p>
-<p></p><h2>Webot</h2>
+<p></p>
+<h2>Webot</h2>
 <p>Note:</p>
 <p>Soild節點代表剛體<span>，一個關節實體可以被分解成若干剛體。</span></p>
 <p><span>Webots 的物理引擎設計用於模擬剛體。設計模擬時，一個重要的步驟是將各種實體分解為單獨的剛體。</span></p>
@@ -156,7 +157,7 @@
 <p>在boundingObject內在使用相同幾何體 並且增加physics屬性</p>
 <p></p>
 <h2>Webot2</h2>
-<h2 data-end="92" data-start="80">一、模擬目標與內容</h2>
+<h2>一、模擬目標與內容</h2>
 <p data-end="132" data-start="94">本次實作目標為使用 Webots 創建一個簡單的剛體物理模擬場景，內容涵蓋：</p>
 <ul data-end="307" data-start="134">
 <li data-end="157" data-start="134">
@@ -179,8 +180,8 @@
 </li>
 </ul>
 <hr data-end="312" data-start="309"/>
-<h2 data-end="325" data-start="314">二、實作步驟詳述</h2>
-<h3 data-end="350" data-start="327">1. 創建剛體球體（Solid 節點）</h3>
+<h2>二、實作步驟詳述</h2>
+<h3>1. 創建剛體球體（Solid 節點）</h3>
 <ul data-end="695" data-start="352">
 <li data-end="369" data-start="352">
 <p data-end="369" data-start="354">在場景樹中選擇最後一個節點</p>
@@ -207,7 +208,7 @@
 <p data-end="695" data-start="667">保存並測試模擬，確認球會因重力掉落並可用滑鼠施力移動</p>
 </li>
 </ul>
-<h3 data-end="721" data-start="697">2. 優化球體幾何（Sphere 節點）</h3>
+<h3>2. 優化球體幾何（Sphere 節點）</h3>
 <ul data-end="797" data-start="723">
 <li data-end="763" data-start="723">
 <p data-end="763" data-start="725">修改 Sphere 節點的 radius 欄位為 0.05，縮小球體尺寸</p>
@@ -216,7 +217,7 @@
 <p data-end="797" data-start="766">將 subdivision 欄位設為 2，提高球體圖形品質</p>
 </li>
 </ul>
-<h3 data-end="823" data-start="799">3. 使用 DEF-USE 機制減少冗餘</h3>
+<h3>3. 使用 DEF-USE 機制減少冗餘</h3>
 <ul data-end="1007" data-start="825">
 <li data-end="869" data-start="825">
 <p data-end="869" data-start="827">對第一個 Sphere 節點設置 DEF 名稱為 <code data-end="867" data-start="852">BALL_GEOMETRY</code></p>
@@ -231,7 +232,7 @@
 <p data-end="1007" data-start="979">這樣修改 radius 會同時影響兩處，提高維護效率</p>
 </li>
 </ul>
-<h3 data-end="1022" data-start="1009">4. 新增第二顆球</h3>
+<h3>4. 新增第二顆球</h3>
 <ul data-end="1120" data-start="1024">
 <li data-end="1054" data-start="1024">
 <p data-end="1054" data-start="1026">複製第一個 Solid 節點，改名並修改位置避免重疊</p>
@@ -243,7 +244,7 @@
 <p data-end="1120" data-start="1102">調整球的位置參數，使兩球並列展示</p>
 </li>
 </ul>
-<h3 data-end="1143" data-start="1122">5. 建立四面牆壁（Box 節點）</h3>
+<h3>5. 建立四面牆壁（Box 節點）</h3>
 <ul data-end="1272" data-start="1145">
 <li data-end="1167" data-start="1145">
 <p data-end="1167" data-start="1147">使用 Box 節點定義牆壁的幾何形狀</p>
@@ -258,7 +259,7 @@
 <p data-end="1272" data-start="1248">設定牆壁尺寸和位置，形成封閉區域包圍剛體球體</p>
 </li>
 </ul>
-<h3 data-end="1290" data-start="1274">6. 修改牆壁外觀為藍色</h3>
+<h3>6. 修改牆壁外觀為藍色</h3>
 <ul data-end="1444" data-start="1292">
 <li data-end="1342" data-start="1292">
 <p data-end="1342" data-start="1294">在牆壁 Shape 節點的 appearance 欄位添加 PBRAppearance 節點</p>
@@ -276,7 +277,7 @@
 <p data-end="1444" data-start="1423">確認所有牆壁共用相同外觀，完成顏色修改</p>
 </li>
 </ul>
-<h3 data-end="1472" data-start="1446">7. 使用 Webots 預設外觀與本地紋理</h3>
+<h3>7. 使用 Webots 預設外觀與本地紋理</h3>
 <ul data-end="1621" data-start="1474">
 <li data-end="1503" data-start="1474">
 <p data-end="1503" data-start="1476">在球體的 appearance 欄位中刪除原有節點</p>
@@ -291,7 +292,7 @@
 <p data-end="1621" data-start="1607">確認紋理正確映射在球體上</p>
 </li>
 </ul>
-<h3 data-end="1641" data-start="1623">8. 渲染模式切換與輔助視圖</h3>
+<h3>8. 渲染模式切換與輔助視圖</h3>
 <ul data-end="1800" data-start="1643">
 <li data-end="1692" data-start="1643">
 <p data-end="1692" data-start="1645">使用 View &gt; Wireframe Rendering 開啟線框模式，觀察物件網格結構</p>
@@ -307,7 +308,7 @@
 </li>
 </ul>
 <hr data-end="1805" data-start="1802"/>
-<h2 data-end="1817" data-start="1807">三、心得與體會</h2>
+<h2>三、心得與體會</h2>
 <p data-end="1868" data-start="1819">透過這次 Webots 剛體物理模擬的實作，我深刻理解了剛體在三維模擬中如何被定義與控制，尤其是：</p>
 <ul data-end="2151" data-start="1870">
 <li data-end="1946" data-start="1870">
@@ -327,7 +328,8 @@
 </li>
 </ul>
 <p data-end="2238" data-start="2153">總結來說，Webots 的圖形化場景樹和屬性編輯器非常直觀，配合詳細文檔與教程，能有效降低物理模擬學習門檻。未來可嘗試加入更多物理約束與感測器應用，進一步拓展模擬複雜度。</p>
-<p></p><h1>W12</h1>
+<p></p>
+<h1>W12</h1>
 <p>先將每個會動的地方（類似人類的關節、膝蓋）設置座標系及軸。</p>
 <p><img alt="" height="440" src="/images/螢幕擷取畫面 2025-11-27 222203.png" width="322"/></p>
 <p>左鍵工具，下拉找到Tool，再點擊Export as URDF。</p>
@@ -364,7 +366,8 @@
 <p><img alt="" height="294" src="/images/螢幕擷取畫面 2025-11-28 001334.png" width="545"/></p>
 <p>Reload World後，我們在新增的機器人分支下找到controller"generic"點擊Select，可以找到剛剛新增的duck_control，點選並點擊OK後，右邊就能進行程式編輯。</p>
 <p><img alt="" height="192" src="/images/螢幕擷取畫面 2025-11-28 002022.png" width="560"/></p>
-<p></p><h1>W14</h1>
+<p></p>
+<h1>W14</h1>
 <p>.py程式控制</p>
 <p>新增控制器</p>
 <p><img alt="" height="217" src="/images/1204-1.png" width="467"/></p>
@@ -391,3 +394,5 @@
 <p></p>
 <p>點擊運行便能執行動作</p>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/wEBKtKPlWuE" width="560"></iframe></p>
+<h1>W15</h1>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/NB23MrFKGh8" width="560"></iframe></p>
