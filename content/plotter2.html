@@ -2,7 +2,7 @@
         <head>
         <title>cad2025_hw</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
@@ -142,34 +142,286 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">W12 << <a href='W12.html'>Previous</a> <a href='W15.html'>Next</a> >> W15<br /><h1>W14</h1>
-<p>.py程式控制</p>
-<p>新增控制器</p>
-<p><img alt="" height="217" src="./../images/1204-1.png" width="467"/></p>
+    <div id="tipue_search_content">過程與心得 << <a href='過程與心得.html'>Previous</a> <a href='W16.html'>Next</a> >> W16<br /><h1>plotter2</h1>
+<p>模仿老師上傳的YT影片，做出可以完整運作的plotter:</p>
+<p>影片:</p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/A61teX4zqYg" width="560"></iframe></p>
+<p>可將jpg檔案放入webots的資料夾裡面，並運用python去掃描(黑白)圖片，便可以將掃描完後的圖片輪廓，模擬繪製出來。</p>
 <p></p>
-<p>選擇python作為解釋器</p>
-<p><img alt="" height="378" src="./../images/1204-2.png" width="526"/></p>
-<p></p>
-<p>名稱自行決定</p>
-<p><img alt="" height="377" src="./../images/1204-3.png" width="534"/></p>
-<p></p>
-<p>生成完成後會有一個基本的webot控制器結構，用這個空白的控制器腳本請AI生成一個控制馬達選轉的程式碼</p>
-<p><img alt="" height="845" src="./../images/1204-4.png" width="522"/></p>
-<p></p>
-<p>生成後將此程式碼複製</p>
-<p><img alt="" height="685" src="./../images/1204-5.png" width="800"/></p>
-<p></p>
-<p>直接貼入控制器文本當中</p>
-<p><img alt="" height="808" src="./../images/1204-6.png" width="524"/></p>
-<p></p>
-<p>隨後在已匯入進去的模型裡設置馬達並命名t1<img alt="" height="408" src="./../images/1204-7.png" width="409"/></p>
-<p></p>
-<p>最後在最外層控制器這裡選擇你剛剛建立的控制器即可</p>
-<p><img alt="" height="474" src="./../images/1204-8.png" width="800"/></p>
-<p></p>
-<p>點擊運行便能執行動作</p>
-<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/wEBKtKPlWuE" width="560"></iframe></p>
-<br />W12 << <a href='W12.html'>Previous</a> <a href='W15.html'>Next</a> >> W15</div>
+<p>程式碼:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">"""Combined_Supervisor_Controller_Final."""
+
+from controller import Supervisor
+import math
+import numpy as np
+
+# 嘗試導入 OpenCV，如果沒安裝或報錯，後面會自動切換成畫圓形模式
+try:
+    import cv2
+except ImportError:
+    cv2 = None
+    print("Warning: OpenCV (cv2) not found. Image loading will be disabled.")
+
+# ================= 參數設定 =================
+# 連桿長度 (單位: 米)
+L1, L2, L3, L4, L5 = 0.20, 0.27, 0.27, 0.20, 0.20
+Ex = L5  # 兩馬達間距
+
+# 馬達零點校正 (依據您的截圖設定)
+T1_OFFSET_DEG = -90.0
+T2_OFFSET_DEG = -17.9
+
+# 描點數量 (點越多越細緻，但畫越慢)
+N_POINTS = 100 
+
+# 目標圖形在 Webots 世界中的位置與大小
+TARGET_CENTER = np.array([0.1, 0.3])
+TARGET_RADIUS = 0.1
+
+# ================= 1. 逆向運動學 IK =================
+def ik(cx, cy):
+    """
+    輸入: 目標座標 (cx, cy)
+    輸出: 馬達角度 (單位: 弧度 rad), 如果無解返回 None
+    """
+    try:
+        # --- 左臂 (t1) 計算 ---
+        L_AC_sq = cx**2 + cy**2
+        L_AC = math.sqrt(L_AC_sq)
+        
+        # 檢查工作空間
+        if L_AC &gt; (L1 + L2) or L_AC &lt; abs(L1 - L2) or L_AC == 0:
+            return None, None
+            
+        alpha = math.atan2(cy, cx)
+        
+        # 餘弦定理求 beta1
+        cos_beta1 = (L1**2 + L_AC_sq - L2**2) / (2 * L1 * L_AC)
+        cos_beta1 = np.clip(cos_beta1, -1.0, 1.0) # 數值保護
+        beta1 = math.acos(cos_beta1)
+        
+        sigma1 = 1 
+        t1 = alpha + sigma1 * beta1
+        
+        # --- 右臂 (t2) 計算 ---
+        dx, dy = cx - Ex, cy
+        L_EC_sq = dx**2 + dy**2
+        L_EC = math.sqrt(L_EC_sq)
+        
+        if L_EC &gt; (L4 + L3) or L_EC &lt; abs(L4 - L3) or L_EC == 0:
+            return None, None
+            
+        gamma = math.atan2(dy, dx)
+        
+        cos_beta2 = (L4**2 + L_EC_sq - L3**2) / (2 * L4 * L_EC)
+        cos_beta2 = np.clip(cos_beta2, -1.0, 1.0)
+        beta2 = math.acos(cos_beta2)
+        
+        sigma2 = -1 
+        t2 = gamma + sigma2 * beta2
+        
+        return t1, t2
+
+    except Exception:
+        return None, None
+
+# ================= 2. 影像處理與路徑生成 =================
+def load_apple_points(image_path, n_points_target=100):
+    if cv2 is None:
+        print("Error: OpenCV is not installed.")
+        return []
+        
+    # 嘗試讀取圖片
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    if img is None:
+        print(f"Error: 無法讀取圖片 {image_path} (請檢查檔名或路徑)")
+        return []
+
+    # 二值化與尋找輪廓
+    _, binary = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY_INV)
+    contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    
+    if not contours:
+        print("Error: 圖片中找不到明顯輪廓 (請確認是黑線白底)")
+        return []
+        
+    main_contour = max(contours, key=cv2.contourArea)
+    
+    # 重新採樣 (Resampling)
+    if len(main_contour) &gt; n_points_target:
+        indices = np.linspace(0, len(main_contour) - 1, n_points_target, dtype=int)
+        sampled = main_contour[indices]
+    else:
+        sampled = main_contour
+
+    pts = sampled[:, 0, :]
+    
+    # 座標轉換
+    h, w = binary.shape
+    pts[:, 1] = h - pts[:, 1] # 翻轉 Y 軸
+    
+    # 正規化 (Normalize)
+    center = np.mean(pts, axis=0)
+    pts_centered = pts - center
+    scale = np.max(np.linalg.norm(pts_centered, axis=1))
+    if scale == 0: scale = 1
+    pts_normalized = pts_centered / scale
+    
+    # 移至目標位置
+    pts_scaled = pts_normalized * TARGET_RADIUS + TARGET_CENTER
+    return pts_scaled
+
+# ================= 2.5 備用方案：畫圓形 =================
+def generate_circle_points(cx=0.1, cy=0.3, r=0.1, steps=100):
+    points = []
+    for i in range(steps):
+        angle = 2 * math.pi * i / steps
+        px = cx + r * math.cos(angle)
+        py = cy + r * math.sin(angle)
+        points.append([px, py])
+    points.append(points[0]) # 閉合
+    return np.array(points)
+
+# ================= 3. 視覺化：在地板畫紅線 =================
+def generate_indexed_line_set(points):
+    point_str = ",\n".join([f"{x:.5f} {y:.5f} 0.001" for x, y in points])
+    indices_str = ", ".join([str(i) for i in range(len(points))]) + ", 0"
+    
+    node_str = f"""
+    Shape {{
+      appearance Appearance {{
+        material Material {{ 
+            diffuseColor 1 0 0 
+            emissiveColor 1 0 0 
+        }}
+      }}
+      geometry IndexedLineSet {{
+        coord Coordinate {{
+          point [
+            {point_str}
+          ]
+        }}
+        coordIndex [
+          {indices_str}
+        ]
+      }}
+    }}
+    """
+    return node_str
+
+# ================= 4. 主流程 Main =================
+def main():
+    # 初始化 Supervisor
+    robot = Supervisor()
+    timestep = int(robot.getBasicTimeStep())
+    
+    print("=== 程式開始執行 ===")
+
+    # --- 步驟 A: 載入路徑點 ---
+    target_image = "dog.jpg"  # 您的圖片檔名
+    
+    path_points = []
+    
+    try:
+        print(f"正在嘗試讀取圖片: {target_image}")
+        # 這裡會使用最上面定義的 N_POINTS
+        path_points = load_apple_points(target_image, n_points_target=N_POINTS)
+        
+        if len(path_points) &gt; 0:
+            print(f"成功載入圖片路徑，共 {len(path_points)} 個點。")
+        else:
+            raise ValueError("圖片讀取結果為空")
+            
+    except Exception as e:
+        print(f"注意: 圖片讀取失敗 ({e})。")
+        print("&gt;&gt;&gt; 自動切換為：圓形測試路徑 &lt;&lt;&lt;")
+        path_points = generate_circle_points(cx=TARGET_CENTER[0], cy=TARGET_CENTER[1], r=TARGET_RADIUS)
+
+    # --- 步驟 B: 畫紅線 (視覺化) ---
+    try:
+        root = robot.getRoot()
+        children_field = root.getField("children")
+        line_node_str = generate_indexed_line_set(path_points)
+        children_field.importMFNodeFromString(-1, line_node_str)
+        print("已在地板繪製紅色路徑線。")
+    except Exception:
+        print("錯誤: 無法畫線。請確認機器人的 'supervisor' 欄位已設為 TRUE。")
+
+    # --- 步驟 C: 取得馬達 ---
+    t1 = robot.getDevice("t1")
+    t2 = robot.getDevice("t2")
+    
+    if t1 is None or t2 is None:
+        print("嚴重錯誤: 找不到馬達 't1' 或 't2'。請檢查 Webots 場景樹中的命名。")
+        return
+
+    # 設定馬達模式
+    t1.setPosition(float('inf')) 
+    t2.setPosition(float('inf'))
+    t1.setVelocity(0)
+    t2.setVelocity(0)
+    
+    # 角度轉換與 Offset 準備
+    deg_to_rad = math.pi / 180.0
+    offset1_rad = T1_OFFSET_DEG * deg_to_rad
+    offset2_rad = T2_OFFSET_DEG * deg_to_rad
+    
+    print("開始路徑追蹤...")
+    
+    # --- 步驟 D: 先移動到起點 ---
+    if len(path_points) &gt; 0:
+        start_x, start_y = path_points[0]
+        q1_start, q2_start = ik(start_x, start_y)
+        
+        if q1_start is not None:
+            t1.setPosition(q1_start + offset1_rad)
+            t2.setPosition(q2_start + offset2_rad)
+            t1.setVelocity(2.0)
+            t2.setVelocity(2.0)
+            # 等待走到起點
+            for _ in range(50):
+                robot.step(timestep)
+
+    # --- 步驟 E: 畫圖迴圈 ---
+    loop_index = 0
+    while robot.step(timestep) != -1:
+        
+        # 循環播放路徑
+        current_pt_idx = loop_index % len(path_points)
+        x, y = path_points[current_pt_idx]
+        
+        # 1. 計算 IK
+        t1_rad, t2_rad = ik(x, y)
+        
+        # 2. 如果算得出來，就移動
+        if t1_rad is not None and t2_rad is not None:
+            # 加上 Offset
+            target_pos1 = t1_rad + offset1_rad
+            target_pos2 = t2_rad + offset2_rad
+            
+            t1.setPosition(target_pos1)
+            t2.setPosition(target_pos2)
+            
+            # 設定繪圖速度
+            t1.setVelocity(3.0) 
+            t2.setVelocity(3.0)
+        else:
+            # 超出範圍時印出警告(偶爾發生沒關係)
+            # print(f"略過不可達點: {x:.2f}, {y:.2f}")
+            pass
+            
+        # 3. 簡單延遲 (Plotter 效果)
+        # 數字越大畫越慢，越小越流暢
+        wait_steps = 5 
+        for _ in range(wait_steps):
+            if robot.step(timestep) == -1:
+                break
+        
+        loop_index += 1
+
+if __name__ == "__main__":
+    main()</pre>
+<p></p><br />過程與心得 << <a href='過程與心得.html'>Previous</a> <a href='W16.html'>Next</a> >> W16</div>
         
     <!-- footer -->
       <div class="container">

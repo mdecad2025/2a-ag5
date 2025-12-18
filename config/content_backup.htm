@@ -459,11 +459,9 @@ for _ in range(50):
 
 print("--- 測試完成 ---")</pre>
 <p></p>
+<p><img alt="" height="294" id="__mcenew" src="/images/111.jpg" width="618"/><span id="__caret">_</span></p>
 <p></p>
-<p></p>
-<p><img alt="https://cdn.discordapp.com/attachments/1359883571547869377/1448928429998084138/2025-12-05_141151.png?ex=693d0b41&amp;is=693bb9c1&amp;hm=1af5b37698bb0b12008d594f4437fe2c052157175c5e862c1494e53232c5adde&amp;" height="294" src="https://cdn.discordapp.com/attachments/1359883571547869377/1448928429998084138/2025-12-05_141151.png?ex=693d0b41&amp;is=693bb9c1&amp;hm=1af5b37698bb0b12008d594f4437fe2c052157175c5e862c1494e53232c5adde&amp;" width="618"/></p>
 <p>重複以上步驟操作，連接底座與連桿。</p>
-<p><img alt="https://media.discordapp.net/attachments/1437383736348905566/1446384446768021625/2025-12-05_141437.png?ex=693d047c&amp;is=693bb2fc&amp;hm=2dc3b837e18641456c9ba456442542ae11b51cd95fb1e53f2a71db339f1c721c&amp;format=webp&amp;quality=lossless&amp;width=1040&amp;height=767&amp;" height="415" src="https://media.discordapp.net/attachments/1437383736348905566/1446384446768021625/2025-12-05_141437.png?ex=693d047c&amp;is=693bb2fc&amp;hm=2dc3b837e18641456c9ba456442542ae11b51cd95fb1e53f2a71db339f1c721c&amp;format=webp&amp;quality=lossless&amp;width=1040&amp;height=767&amp;" width="563"/></p>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/NB23MrFKGh8" width="560"></iframe></p>
 <p><span>影片:底座二連接桿子三、四 模擬測試。</span></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># four_links_10s_reset_test.py
@@ -571,7 +569,8 @@ while robot.step(timestep) != -1:
         break
 
 print("--- 模擬結束 ---")
-</pre><h2>過程與心得</h2>
+</pre>
+<h2>過程與心得</h2>
 <ul>
 <li>
 <p data-path-to-node="6,0,0"><b>專注於幾何對齊：</b><span> </span>在 Webots 中，最費時也最關鍵的步驟是確保所有的<span> </span><code>HingeJoint</code><span> </span>或<span> </span><code>RotationalMotor</code><span> </span>的<span> </span><b><code>anchor</code></b><span> </span>和<span> </span><b><code>axis</code></b><span> </span>參數與連桿的<span> </span><b><code>translation</code></b><span> </span>參數完美對齊。</p>
@@ -587,5 +586,10 @@ print("--- 模擬結束 ---")
 </li>
 <li>在剛開始用webots的時候，確實有許多分支節點不知道怎麼運用，連接一個底座加上桿子就要花上幾十分鐘，更別說要將他們牢固的連接在一起，不過經過反覆觀看操作影片跟gemini的交流後，運用的也越加快速，哪裡可以匯入零件的外觀、哪裡要加HingeJoint將零件之間牢牢固定，最後還用了python將零件上的馬達運轉，總結來說，製作 Webots 繪圖機的體會就是：<b>從嚴謹的幾何建模開始，通過精確的運動學數學模型，最終在控制器程式中實現時間與空間的精準控制。</b></li>
 </ul>
-<h1>W16</h1>
+<h2>plotter2</h2>
+<p>模仿老師上傳的YT影片，做出可以完整運作的plotter:</p>
+<p>影片:</p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/A61teX4zqYg" width="560"></iframe></p>
+<p>可將jpg檔案放入webots的資料夾裡面，並運用python去掃描(黑白)圖片，便可以將掃描完後的圖片輪廓，模擬繪製出來。</p>
+<p></p><h1>W16</h1>
 <p><b>PPT連結</b>: <a href="https://nfuedu-my.sharepoint.com/:p:/g/personal/41323113_nfu_edu_tw/IQBECmvGscP3To1EGB3sbO0YAWGNLV4gjnCK_uWV0PZaR3k?rtime=ho92FsY73kg">電腦輔助實習報告PPT</a></p>
