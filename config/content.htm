@@ -307,7 +307,157 @@
 </ul>
 <hr data-end="312" data-start="309"/>
 <h2>二、實作步驟詳述</h2>
-<h2>三、心得與體會</h2>
+<h4 data-end="474" data-start="451">步驟一：啟動 Webots 與建立專案</h4>
+<ol data-end="694" data-start="476">
+<li data-end="514" data-start="476">
+<h4 data-end="514" data-start="479">啟動 Webots 軟體，首次啟動時選擇任一圖形主題，並關閉導覽教學。</h4>
+</li>
+<li data-end="591" data-start="515">
+<h4 data-end="591" data-start="518">由選單 <code data-end="552" data-start="522">File → New Project Directory</code> 建立新專案，專案名稱設定為 <strong data-end="590" data-start="567">my_first_simulation</strong>。</h4>
+</li>
+<li data-end="674" data-start="592">
+<h4 data-end="674" data-start="595">建立新的世界檔，檔名設定為 <strong data-end="636" data-start="609">my_first_simulation.wbt</strong>，並勾選「Add a rectangle arena」選項以建立預設競技場。</h4>
+</li>
+<li data-end="694" data-start="675">
+<h4 data-end="694" data-start="678">將模擬暫停，確認虛擬時間為 0。</h4>
+</li>
+</ol>
+<hr data-end="699" data-start="696"/>
+<h4 data-end="716" data-start="701">步驟二：調整競技場設定</h4>
+<ol data-end="886" data-start="718">
+<li data-end="761" data-start="718">
+<h4 data-end="761" data-start="721">於場景樹（Scene Tree）中雙擊 <code data-end="757" data-start="741">RectangleArena</code> 節點。</h4>
+</li>
+<li data-end="814" data-start="762">
+<h4 data-end="814" data-start="765">將 <code data-end="782" data-start="767">floorTileSize</code> 由原本的 <code data-end="797" data-start="788">0.5 0.5</code> 修改為 <code data-end="813" data-start="802">0.25 0.25</code>。</h4>
+</li>
+<li data-end="860" data-start="815">
+<h4 data-end="860" data-start="818">將 <code data-end="832" data-start="820">wallHeight</code> 由 <code data-end="840" data-start="835">0.1</code> 修改為 <code data-end="851" data-start="845">0.05</code>，以降低牆壁高度。</h4>
+</li>
+<li data-end="886" data-start="861">
+<h4 data-end="886" data-start="864">觀察 3D 視窗中地板磁磚與牆壁高度之變化。</h4>
+</li>
+</ol>
+<hr data-end="891" data-start="888"/>
+<h4 data-end="910" data-start="893">步驟三：新增障礙物（木箱）</h4>
+<ol data-end="1142" data-start="912">
+<li data-end="945" data-start="912">
+<h4 data-end="945" data-start="915">選取 <code data-end="934" data-start="918">RectangleArena</code> 節點並點擊新增按鈕。</h4>
+</li>
+<li data-end="1016" data-start="946">
+<h4 data-end="1016" data-start="949">於 PROTO 節點中選擇 <code data-end="1015" data-start="963">objects / factory / containers / WoodenBox (Solid)</code>。</h4>
+</li>
+<li data-end="1050" data-start="1017">
+<h4 data-end="1050" data-start="1020">將木箱尺寸設定為 <code data-end="1046" data-start="1029">0.1 × 0.1 × 0.1</code> 公尺。</h4>
+</li>
+<li data-end="1097" data-start="1051">
+<h4 data-end="1097" data-start="1054">調整其 <code data-end="1071" data-start="1058">translation</code> 為 <code data-end="1084" data-start="1074">0 0 0.05</code>，使箱子正確放置於地板上。</h4>
+</li>
+<li data-end="1142" data-start="1098">
+<h4 data-end="1142" data-start="1101">使用複製與貼上功能建立三個木箱，並將其分別放置於競技場不同位置，避免遮擋中央區域。</h4>
+</li>
+</ol>
+<hr data-end="1147" data-start="1144"/>
+<h4 data-end="1170" data-start="1149">步驟四：加入 e-puck 機器人</h4>
+<ol data-end="1287" data-start="1172">
+<li data-end="1187" data-start="1172">
+<h4 data-end="1187" data-start="1175">於場景樹中點擊新增按鈕。</h4>
+</li>
+<li data-end="1240" data-start="1188">
+<h4 data-end="1240" data-start="1191">選擇 <code data-end="1239" data-start="1194">robots / gctronic / e-puck / E-puck (Robot)</code>。</h4>
+</li>
+<li data-end="1275" data-start="1241">
+<h4 data-end="1275" data-start="1244">使用平移與旋轉工具，將 e-puck 機器人放置於競技場中央。</h4>
+</li>
+<li data-end="1287" data-start="1276">
+<h4 data-end="1287" data-start="1279">儲存目前世界檔。</h4>
+</li>
+</ol>
+<hr data-end="1292" data-start="1289"/>
+<h4 data-end="1311" data-start="1294">步驟五：建立並撰寫控制程式</h4>
+<ol data-end="1439" data-start="1313">
+<li data-end="1353" data-start="1313">
+<h4 data-end="1353" data-start="1316">於場景樹中右鍵點擊 e-puck 機器人，選擇新增 Controller。</h4>
+</li>
+<li data-end="1402" data-start="1354">
+<h4 data-end="1402" data-start="1357">控制器語言選擇 Python，檔名命名為 <strong data-end="1401" data-start="1378">epuck_controller.py</strong>。</h4>
+</li>
+<li data-end="1439" data-start="1403">
+<h4 data-end="1439" data-start="1406">於控制程式中撰寫程式碼，使機器人兩側輪子以固定位置轉動，範例如下：</h4>
+</li>
+</ol>
+<div class="@w-xl/main:top-9 sticky top-[calc(--spacing(9)+var(--header-height))]">
+<div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+<div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-python"><span><span><span class="hljs-keyword">from</span></span><span> controller </span><span><span class="hljs-keyword">import</span></span><span> Robot TIME_STEP = </span><span><span class="hljs-number">64</span></span><span> robot = Robot() leftMotor = robot.getDevice(</span><span><span class="hljs-string">'left wheel motor'</span></span><span>) rightMotor = robot.getDevice(</span><span><span class="hljs-string">'right wheel motor'</span></span><span>) leftMotor.setPosition(</span><span><span class="hljs-number">10.0</span></span><span>) rightMotor.setPosition(</span><span><span class="hljs-number">10.0</span></span><span>) </span><span><span class="hljs-keyword">while</span></span><span> robot.step(TIME_STEP) != -</span><span><span class="hljs-number">1</span></span><span>: </span><span><span class="hljs-keyword">pass</span></span><span> </span></span></code></div>
+<ol data-end="1753" data-start="1719" start="4">
+<li data-end="1753" data-start="1719">
+<h4 data-end="1753" data-start="1722">儲存程式並執行模擬，觀察 e-puck 機器人向前移動之行為。</h4>
+</li>
+</ol>
+<hr data-end="1758" data-start="1755"/>
+<h4 data-end="1776" data-start="1760">步驟六：建立剛體模擬環境</h4>
+<ol data-end="1912" data-start="1778">
+<li data-end="1835" data-start="1778">
+<h4 data-end="1835" data-start="1781">使用 <code data-end="1809" data-start="1784">File → Save World As...</code> 將世界另存為 <strong data-end="1834" data-start="1817">obstacles.wbt</strong>。</h4>
+</li>
+<li data-end="1862" data-start="1836">
+<h4 data-end="1862" data-start="1839">刪除 <code data-end="1858" data-start="1842">RectangleArena</code> 節點。</h4>
+</li>
+<li data-end="1912" data-start="1863">
+<h4 data-end="1912" data-start="1866">新增 <code data-end="1884" data-start="1869">Floor (Solid)</code> 節點作為地板，並將尺寸設定為 <code data-end="1911" data-start="1900">1 m × 1 m</code>。</h4>
+</li>
+</ol>
+<hr data-end="1917" data-start="1914"/>
+<h4 data-end="1933" data-start="1919">步驟七：建立球體剛體</h4>
+<ol data-end="2134" data-start="1935">
+<li data-end="1958" data-start="1935">
+<h4 data-end="1958" data-start="1938">新增一個 <code data-end="1950" data-start="1943">Solid</code> 節點作為球體。</h4>
+</li>
+<li data-end="2009" data-start="1959">
+<h4 data-end="2009" data-start="1962">在其 <code data-end="1975" data-start="1965">children</code> 欄位中加入 <code data-end="1989" data-start="1982">Shape</code> 與 <code data-end="2000" data-start="1992">Sphere</code> 節點以定義外觀。</h4>
+</li>
+<li data-end="2056" data-start="2010">
+<h4 data-end="2056" data-start="2013">在 <code data-end="2031" data-start="2015">boundingObject</code> 欄位中加入 <code data-end="2046" data-start="2038">Sphere</code> 節點作為碰撞邊界。</h4>
+</li>
+<li data-end="2101" data-start="2057">
+<h4 data-end="2101" data-start="2060">在 <code data-end="2071" data-start="2062">physics</code> 欄位中加入 <code data-end="2087" data-start="2078">Physics</code> 節點，使球體具有物理效果。</h4>
+</li>
+<li data-end="2134" data-start="2102">
+<h4 data-end="2134" data-start="2105">將球體半徑設定為 <code data-end="2120" data-start="2114">0.05</code> 公尺，並放置於機器人前方。</h4>
+</li>
+</ol>
+<hr data-end="2139" data-start="2136"/>
+<h4 data-end="2162" data-start="2141">步驟八：應用 DEF–USE 機制</h4>
+<ol data-end="2284" data-start="2164">
+<li data-end="2209" data-start="2164">
+<h4 data-end="2209" data-start="2167">將球體的 <code data-end="2180" data-start="2172">Sphere</code> 幾何節點定義為 <code data-end="2208" data-start="2189">DEF BALL_GEOMETRY</code>。</h4>
+</li>
+<li data-end="2256" data-start="2210">
+<h4 data-end="2256" data-start="2213">在 <code data-end="2231" data-start="2215">boundingObject</code> 中使用 <code data-end="2255" data-start="2236">USE BALL_GEOMETRY</code>。</h4>
+</li>
+<li data-end="2284" data-start="2257">
+<h4 data-end="2284" data-start="2260">確保修改一次幾何參數即可同時影響外觀與碰撞邊界。</h4>
+</li>
+</ol>
+<hr data-end="2289" data-start="2286"/>
+<h4 data-end="2306" data-start="2291">步驟九：外觀與渲染設定</h4>
+<ol data-end="2475" data-start="2308">
+<li data-end="2343" data-start="2308">
+<h4 data-end="2343" data-start="2311">為牆壁的 Shape 節點加入 <code data-end="2342" data-start="2327">PBRAppearance</code>。</h4>
+</li>
+<li data-end="2396" data-start="2344">
+<h4 data-end="2396" data-start="2347">設定牆壁顏色為藍色，並將 <code data-end="2371" data-start="2360">metalness</code> 設為 0、<code data-end="2388" data-start="2377">roughness</code> 設為 0.5。</h4>
+</li>
+<li data-end="2436" data-start="2397">
+<h4 data-end="2436" data-start="2400">為球體加入紋理或預設的 PBRAppearance，以提升模擬視覺效果。</h4>
+</li>
+<li data-end="2475" data-start="2437">
+<h4 data-end="2475" data-start="2440">使用 Webots 的線框模式與一般渲染模式，觀察模型結構與外觀差異。</h4>
+<img alt="" height="212" src="/images/螢幕擷取畫面 2025-12-05 155108.png" width="342"/><img alt="" height="209" src="/images/螢幕擷取畫面 2025-12-05 155520.png" width="342"/></li>
+</ol><h2>三、心得與體會</h2>
 <p data-end="1868" data-start="1819">透過這次 Webots 剛體物理模擬的實作，我深刻理解了剛體在三維模擬中如何被定義與控制，尤其是：</p>
 <ul data-end="2151" data-start="1870">
 <li data-end="1946" data-start="1870">
@@ -865,5 +1015,6 @@ def main():
 
 if __name__ == "__main__":
     main()</pre>
-<p></p><h1>W16</h1>
+<p></p>
+<h1>W16</h1>
 <p><b>PPT連結</b>: <a href="https://nfuedu-my.sharepoint.com/:p:/g/personal/41323113_nfu_edu_tw/IQBECmvGscP3To1EGB3sbO0YAWGNLV4gjnCK_uWV0PZaR3k?rtime=ho92FsY73kg">電腦輔助實習報告PPT</a></p>
