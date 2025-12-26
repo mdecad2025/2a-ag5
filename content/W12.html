@@ -179,8 +179,25 @@ img.add_border {
 <p><img alt="" height="294" src="./../images/螢幕擷取畫面 2025-11-28 001334.png" width="545"/></p>
 <p>Reload World後，我們在新增的機器人分支下找到controller"generic"點擊Select，可以找到剛剛新增的duck_control，點選並點擊OK後，右邊就能進行程式編輯。</p>
 <p><img alt="" height="192" src="./../images/螢幕擷取畫面 2025-11-28 002022.png" width="560"/></p>
-<p></p>
-<br />三、心得與體會 << <a href='三、心得與體會.html'>Previous</a> <a href='W14.html'>Next</a> >> W14</div>
+<p>__________________________________W16更新_______________________________________</p>
+<p>根據AI的回答，Webots跳出的紅字警告與三角網格和節點過多有關，解決辦法有兩個，第一個是減少匯入的模型，第二個是將所有模型的三角網格都減少，為保萬全，我們兩個兩個都有做。</p>
+<p><img alt="" height="307" src="./../images/螢幕擷取畫面 2025-11-27 023256.png" width="554"/></p>
+<p>首先打開Blender將要減少網格數的模型STL匯入。</p>
+<p><img alt="" height="637" src="./../images/螢幕擷取畫面 2025-12-26 000918.png" width="525"/></p>
+<p>匯入後可以在右下角看到目前這個模型的網格總數以及網格類型。</p>
+<p><img alt="" height="285" src="./../images/螢幕擷取畫面 2025-12-26 001219.png" width="570"/></p>
+<p>點擊右邊藍色板手的符號，再點擊新增修改器。</p>
+<p><img alt="" height="312" src="./../images/螢幕擷取畫面 2025-12-26 001338.png" width="335"/></p>
+<p>游標移動到生成，再點擊大量毀滅。</p>
+<p><img alt="" height="636" src="./../images/螢幕擷取畫面 2025-12-26 001311.png" width="539"/></p>
+<p>在比率那一欄做更動，讓下方的網格數減少到一定程度。</p>
+<p><img alt="" height="612" src="./../images/螢幕擷取畫面 2025-12-26 001437.png" width="570"/></p>
+<p>完成後匯出STL。</p>
+<p><img alt="" height="638" src="./../images/螢幕擷取畫面 2025-12-26 001459.png" width="525"/></p>
+<p>其他的模型依照上述步驟減少三角網格，完成後到存放STL的資料夾將修改過的檔案取代原本的檔案。</p>
+<p><img alt="" height="266" src="./../images/螢幕擷取畫面 2025-12-26 001622.png" width="567"/></p>
+<p>打開Webots並Reload World後可以看到和網格、節點相關的警告消失了，其他的紅字警告正在排除中。</p>
+<p><img alt="" height="298" src="./../images/螢幕擷取畫面 2025-12-26 005812.png" width="561"/></p><br />三、心得與體會 << <a href='三、心得與體會.html'>Previous</a> <a href='W14.html'>Next</a> >> W14</div>
         
     <!-- footer -->
       <div class="container">
